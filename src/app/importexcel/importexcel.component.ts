@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import * as XLSX from 'xlsx';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-//import { NgChartsModule } from 'ng2-charts';
 
 @Component({
   selector: 'app-importexcel',
@@ -17,21 +19,24 @@ import { MatButtonModule } from '@angular/material/button';
     MatPaginatorModule,
     MatSortModule,
     MatInputModule,
-    MatButtonModule,
-    //NgChartsModule
+    MatButtonModule
   ],
   templateUrl: './importexcel.component.html',
   styleUrls: ['./importexcel.component.css']
 })
-export class ImportexcelComponent {
+export class ImportexcelComponent implements AfterViewInit {
   data: any[] = [];
-  chartLabels: string[] = [];
-  chartData: any[] = [{ data: [], label: 'SALDO_ACTUAL' }];
-  chartOptions = {
-    responsive: true,
-  };
+  displayedColumns: string[] = [];
+  dataSource = new MatTableDataSource<any>(this.data);
 
-  // Método para manejar el cambio de archivo
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   onFileChange(evt: any) {
     const target: DataTransfer = <DataTransfer>(evt.target);
     if (target.files.length !== 1) throw new Error('Solo se puede insertar un solo archivo');
@@ -43,55 +48,74 @@ export class ImportexcelComponent {
       const wsname: string = wb.SheetNames[0];
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
-      this.data = XLSX.utils.sheet_to_json(ws, { header: 1 });
-      this.processChartData();
+      // Leer los datos del archivo Excel
+      const rawData = XLSX.utils.sheet_to_json(ws, { header: 1 }) as any[];
+
+      if (rawData.length > 1) {
+        const headers = rawData[0];
+        this.data = rawData.slice(1).map(row => {
+          const obj: any = {};
+          headers.forEach((header: string, index: number) => {
+            obj[header] = row[index];
+          });
+          return obj;
+        });
+        console.log('DATA EXCEL', this.data);
+      } else {
+        this.data = [];
+      }
+
+      // Obtener los encabezados de las columnas
+      this.displayedColumns = this.getHeaders();
+
+      // Actualizar el DataSource de la tabla
+      this.dataSource.data = this.data;
     };
     reader.readAsBinaryString(target.files[0]);
   }
 
-  // Método para obtener los encabezados de las columnas
   getHeaders(): string[] {
     return this.data.length > 0 ? Object.keys(this.data[0]) : [];
   }
 
-  // Métodos para obtener los cálculos necesarios
   getMinSaldo(): any {
-    return this.data.reduce((min, p) => p.SALDO_ACTUAL < min.SALDO_ACTUAL ? p : min, this.data[0]);
+    return this.data.reduce((min, p) => (Number(p.SALDO_ACTUAL) < Number(min.SALDO_ACTUAL) ? p : min), this.data[0]);
   }
 
   getMaxSaldo(): any {
-    return this.data.reduce((max, p) => p.SALDO_ACTUAL > max.SALDO_ACTUAL ? p : max, this.data[0]);
+    return this.data.reduce((max, p) => (Number(p.SALDO_ACTUAL) > Number(max.SALDO_ACTUAL) ? p : max), this.data[0]);
   }
 
   getSumSaldo(): number {
-    return this.data.reduce((sum, p) => sum + p.SALDO_ACTUAL, 0);
+    return this.data.reduce((sum, p) => sum + (Number(p.SALDO_ACTUAL) || 0), 0);
   }
 
   getSumLimiteCredito(): number {
-    return this.data.reduce((sum, p) => sum + p.LIMITE_DE_CREDITO, 0);
+    return this.data.reduce((sum, p) => sum + (Number(p.LIMITE_DE_CREDITO) || 0), 0);
   }
 
   getSumSaldoVencido(): number {
-    return this.data.reduce((sum, p) => sum + p.SALDO_VENCIDO, 0);
-  }
-
-  getSumSaldoDisponible(): number {
-    return this.data.reduce((sum, p) => sum + (p.LIMITE_DE_CREDITO - p.SALDO_ACTUAL), 0);
+    return this.data.reduce((sum, p) => sum + (Number(p.SALDO_VENCIDO) || 0), 0);
   }
 
   getTotalRegistros(): number {
     return this.data.length;
   }
 
-  // Método para procesar los datos de la gráfica
-  processChartData() {
-    const estados = [...new Set(this.data.map(d => d.ESTADO))];
-    this.chartLabels = estados;
-    const saldoData = estados.map(estado => {
-      return this.data
-        .filter(d => d.ESTADO === estado)
-        .reduce((sum, d) => sum + d.SALDO_ACTUAL, 0);
-    });
-    this.chartData = [{ data: saldoData, label: 'SALDO_ACTUAL' }];
+  formatDate(dateStr: string): string {
+    if (!dateStr || dateStr.length !== 8) return '';
+
+    const day = dateStr.substring(0, 2);
+    const month = dateStr.substring(2, 4);
+    const year = dateStr.substring(4, 8);
+
+    const date = new Date(`${year}-${month}-${day}`);
+    return date.toLocaleDateString('es-ES'); // Ajusta el formato de la fecha según sea necesario
+  }
+
+  formatCurrency(value: any): string {
+    const numberValue = parseFloat(value);
+    if (isNaN(numberValue)) return '';
+    return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2 }).format(numberValue);  
   }
 }
