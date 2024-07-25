@@ -1,29 +1,117 @@
+.container-fluid {
+  padding: 20px;
+}
+
 .box {
-    border: 1px solid #ffffff00;
-    width: flex;
-    height: flex;
-    overflow-x: scroll;
-    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-    margin: 30px;
-    font-size: 30px;
-  }
- 
+  margin: 20px 0;
+  border: 1px solid #ffffff00;
+  width: auto; /* Cambiado a auto para que se ajuste al contenido */
+  height: auto; /* Cambiado a auto para que se ajuste al contenido */
+  overflow-x: scroll;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 30px;
+}
+
+.custom-header {
+  font-weight: bold;
+}
+
+.custom-header-row {
+  background-color: #f8f9fa;
+}
+
+.custom-cell {
+  text-align: center;
+}
+
+.paginator {
+  margin: 20px 0;
+}
+
+.calculated-data {
+  margin: 20px 0;
+}
+
+.chart-pie-section {
+  width: 100%;
+  max-width: 600px; /* Ajusta el tamaño máximo según sea necesario */
+  margin: 0 auto;
+}
+
+.chart-pie-section canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.chart-section {
+  width: 100%;
+  max-width: 600px; /* Ajusta el tamaño máximo según sea necesario */
+  margin: 0 auto;
+}
+
+.chart-section canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-form-field .mat-form-field-flex {
+  align-items: center;
+}
+
+mat-form-field .mat-form-field-suffix {
+  margin-left: 8px;
+}
 
 .row {
   display: flex;
-  justify-content: center; /* Centra horizontalmente el contenido de la fila */
+  justify-content: center;
 }
 
 .col-sm-12 {
   display: flex;
-  flex-direction: column; /* Alinea los elementos verticalmente */
-  align-items: center; /* Centra horizontalmente los elementos dentro de la columna */
+  flex-direction: column;
+  align-items: center;
 }
 
 .text-center {
-  text-align: center; /* Centra el texto dentro de los elementos */
+  text-align: center;
 }
-.chart-section{
-  width: 500px;
-  height: 500px;
+
+.file-upload-container {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  margin: 0;
+}
+
+.file-upload-label {
+  display: inline-block;
+  padding: 1rem;
+  border: 2px solid #f1f1f1;
+  border-radius: 4rem;
+  background-color: #f9fafb2e;
+  color: #00000036;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1rem;
+  box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.195);
+}
+
+.file-upload-label:hover {
+  background-color: #f9fafbc9;
+  box-shadow: 1.2px 8px 7px rgba(0, 0, 0, 0.201);
+  color: #0000008e;
+}
+
+.file-upload-text {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+#file-upload {
+  display: none;
 }

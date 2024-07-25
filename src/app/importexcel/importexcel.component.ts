@@ -10,6 +10,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { Chart, registerables } from 'chart.js';
+import { ExcelData, defaultExcelData } from '../interface/dataExcel';
+import { MatIconModule } from '@angular/material/icon';
+
 Chart.register(...registerables);
 
 @Component({
@@ -22,14 +25,16 @@ Chart.register(...registerables);
     MatSortModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
   ],
   templateUrl: './importexcel.component.html',
   styleUrls: ['./importexcel.component.css']
 })
 export class ImportexcelComponent implements AfterViewInit {
-  data: any[] = [];
+  data: ExcelData[] = [defaultExcelData];
   displayedColumns: string[] = [];
-  dataSource = new MatTableDataSource<any>(this.data);
+  dataSource = new MatTableDataSource<ExcelData>(this.data);
+  dataCargada: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -63,6 +68,7 @@ export class ImportexcelComponent implements AfterViewInit {
           headers.forEach((header: string, index: number) => {
             obj[header] = row[index];
           });
+          this.dataCargada = true;
           return obj;
         });
         console.log('DATA EXCEL', this.data);
@@ -72,7 +78,6 @@ export class ImportexcelComponent implements AfterViewInit {
         // Actualizar el DataSource de la tabla
         this.dataSource.data = this.data;
 
-        // Asegúrate de que paginator y sort estén configurados
         if (this.paginator) {
           this.dataSource.paginator = this.paginator;
         }
@@ -126,13 +131,13 @@ export class ImportexcelComponent implements AfterViewInit {
     const year = dateStr.substring(4, 8);
 
     const date = new Date(`${year}-${month}-${day}`);
-    return date.toLocaleDateString('es-ES'); // Ajusta el formato de la fecha según sea necesario
+    return date.toLocaleDateString('es-ES');
   }
 
   formatCurrency(value: any): string {
     const numberValue = parseFloat(value);
     if (isNaN(numberValue)) return '';
-    // Usar el constructor con las opciones adecuadas
+
     return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2 }).format(numberValue);
   }
 
@@ -143,11 +148,11 @@ export class ImportexcelComponent implements AfterViewInit {
         .filter(item => item.ESTADO === estado)
         .reduce((sum, item) => sum + Number(item.SALDO_ACTUAL || 0), 0);
     });
-  
+
     if (this.barChart) {
       this.barChart.destroy();
     }
-  
+
     this.barChart = new Chart('barChart', {
       type: 'bar',
       data: {
@@ -172,7 +177,7 @@ export class ImportexcelComponent implements AfterViewInit {
             callbacks: {
               label: function(context) {
                 const label = context.dataset.label || '';
-                // Asegúrate de que context.raw sea un número
+
                 const value = Number(context.raw) || 0;
                 return `${label}: ${new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value)}`;
               }
@@ -182,16 +187,16 @@ export class ImportexcelComponent implements AfterViewInit {
       }
     });
   }
-  
+
   createPieChart() {
     const limiteCredito = this.data.reduce((sum, item) => sum + Number(item.LIMITE_DE_CREDITO || 0), 0);
     const saldoActual = this.data.reduce((sum, item) => sum + Number(item.SALDO_ACTUAL || 0), 0);
     const saldoDisponible = limiteCredito - saldoActual;
-  
+
     if (this.pieChart) {
       this.pieChart.destroy();
     }
-  
+
     this.pieChart = new Chart('pieChart', {
       type: 'pie',
       data: {
@@ -210,7 +215,6 @@ export class ImportexcelComponent implements AfterViewInit {
             callbacks: {
               label: function(context) {
                 const label = context.label || '';
-                // Asegúrate de que context.raw sea un número
                 const value = Number(context.raw) || 0;
                 return `${label}: ${new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value)}`;
               }
