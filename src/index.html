@@ -1,72 +1,17 @@
-<!-- app.component.html -->
-<div>
-  <input type="file" (change)="onFileChange($event)" />
-</div>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ExamenRadicalsoftware</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="mat-typography">
 
-<div *ngIf="minSaldo">
-  <p>Persona con menor saldo: {{ minSaldo.NOMBRE }}</p>
-  <p>Persona con mayor saldo: {{ maxSaldo.NOMBRE }}</p>
-</div>
-
-<div>
-  <p>Suma de saldos: {{ sumaSaldos }}</p>
-  <p>Suma de límites de crédito: {{ sumaLimites }}</p>
-  <p>Suma de saldos vencidos: {{ sumaVencidos }}</p>
-  <p>Suma de saldos disponibles: {{ sumaDisponibles }}</p>
-  <p>Total de registros: {{ totalRegistros }}</p>
-</div>
-
-<div>
-  <p>Temperatura actual: {{ temperaturaActual }}</p>
-</div>
-
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <!-- Definir columnas aquí -->
-  <ng-container matColumnDef="NOMBRE">
-    <th mat-header-cell *matHeaderCellDef> Nombre </th>
-    <td mat-cell *matCellDef="let element"> {{element.NOMBRE}} </td>
-  </ng-container>
-  <ng-container matColumnDef="SALDO_ACTUAL">
-    <th mat-header-cell *matHeaderCellDef> Saldo Actual </th>
-    <td mat-cell *matCellDef="let element"> {{element.SALDO_ACTUAL}} </td>
-  </ng-container>
-  <ng-container matColumnDef="LIMITE_DE_CREDITO">
-    <th mat-header-cell *matHeaderCellDef> Límite de Crédito </th>
-    <td mat-cell *matCellDef="let element"> {{element.LIMITE_DE_CREDITO}} </td>
-  </ng-container>
-  <ng-container matColumnDef="SALDO_VENCIDO">
-    <th mat-header-cell *matHeaderCellDef> Saldo Vencido </th>
-    <td mat-cell *matCellDef="let element"> {{element.SALDO_VENCIDO}} </td>
-  </ng-container>
-  <ng-container matColumnDef="SALDO_DISPONIBLE">
-    <th mat-header-cell *matHeaderCellDef> Saldo Disponible </th>
-    <td mat-cell *matCellDef="let element"> {{element.LIMITE_DE_CREDITO - element.SALDO_ACTUAL}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
-
-<div style="display: flex; justify-content: space-around;">
-  <div>
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [chartType]="barChartType">
-    </canvas>
-  </div>
-
-  <div>
-    <canvas baseChart
-            [datasets]="pieChartData"
-            [labels]="pieChartLabels"
-            [options]="pieChartOptions"
-            [legend]="pieChartLegend"
-            [chartType]="pieChartType">
-    </canvas>
-  </div>
-</div>
+  
+  <app-root></app-root>
+</body>
+</html>
