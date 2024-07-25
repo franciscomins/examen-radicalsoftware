@@ -1,60 +1,99 @@
-<div>
-    <section>
-        <div class="container">
-            <div class="row m-5">
-                <div class="col">
-                    <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="inputGroupFile02" (change)="onFileChange($event)">
-                    </div>
-                </div>
-            </div>
+<div class="container-fluid">
 
-            <!-- Datos calculados -->
-            <div class="calculated-data">
-                <p>Total de registros: {{ getTotalRegistros() }}</p>
-                <p>Persona con menor SALDO_ACTUAL: {{ getMinSaldo().PRIMER_NOMBRE }} {{ getMinSaldo().SEGUNDO_NOMBRE }} {{ getMinSaldo().APELLIDO_PATERNO }} {{ getMinSaldo().APELLIDO_MATERNO }} Con un saldo Actual de {{ getMinSaldo().SALDO_ACTUAL | currency }}</p>
-                <p>Persona con mayor SALDO_ACTUAL: {{ getMaxSaldo().PRIMER_NOMBRE }} {{ getMaxSaldo().SEGUNDO_NOMBRE }} {{ getMaxSaldo().APELLIDO_PATERNO }} {{ getMaxSaldo().APELLIDO_MATERNO }} Con un saldo Actual de {{ getMaxSaldo().SALDO_ACTUAL | currency }}</p>
-                <p>Suma de SALDO_ACTUAL: {{ getSumSaldo() | currency }}</p>
-                <p>Suma de LIMITE_DE_CREDITO: {{ getSumLimiteCredito() | currency }}</p>
-                <p>Suma de SALDO_VENCIDO: {{ getSumSaldoVencido() | currency }}</p>
-                <p>Suma de SALDO_DISPONIBLE: {{ getSumLimiteCredito() - getSumSaldo() | currency }}</p>
-            </div>
-        </div>
-    </section>
+  <div class="row m-5">
 
-    <section>
-        <div class="container-fluid">
-            <div class="box" *ngIf="data.length > 0">
-         
-                <!-- Tabla para mostrar los datos -->
-                <table class="table table-hover " mat-table [dataSource]="dataSource" matSort>
-                    <ng-container matColumnDef="{{header}}" *ngFor="let header of displayedColumns">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header">{{header}}</th>
-                        <td mat-cell *matCellDef="let row" class="custom-cell">
-                            <ng-container [ngSwitch]="header">
-                                <!-- Personaliza la columna de fecha -->
-                                <span *ngSwitchCase="'FECHA_DE_NACIMIENTO'">{{ formatDate(row[header]) }}</span>
-                                <!-- Personaliza las columnas monetarias -->
-                                <span *ngSwitchCase="'SALDO_ACTUAL'">{{ formatCurrency(row[header]) }}</span>
-                                <span *ngSwitchCase="'LIMITE_DE_CREDITO'">{{ formatCurrency(row[header]) }}</span>
-                                <span *ngSwitchCase="'SALDO_VENCIDO'">{{ formatCurrency(row[header]) }}</span>
-                                <!-- Otros casos por defecto -->
-                                <span *ngSwitchDefault>{{row[header]}}</span>
-                            </ng-container>
-                        </td>
-                    </ng-container>
+    <div class="input-group col sm-6 ">
+      <input type="file" class="form-control" id="inputGroupFile02" (change)="onFileChange($event)">
+    </div>
+  </div>
 
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="custom-header-row"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="custom-row"></tr>
 
-                </table>
-                   
-                      <!-- Paginador -->
-                      <div>
-                        <mat-paginator class="paginator" [pageSizeOptions]="[5, 10, 20, 30]" showFirstLastButtons class="custom-paginator"></mat-paginator>
-                    </div>
-            </div>
-            
-        </div>
-    </section>
+
+
+
+  <div class="box" *ngIf="data.length > 0">
+
+    <!-- Tabla para mostrar los datos -->
+    <table class="table table-hover " mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="{{header}}" *ngFor="let header of displayedColumns">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-header">{{header}}</th>
+        <td mat-cell *matCellDef="let row" class="custom-cell">
+          <ng-container [ngSwitch]="header">
+            <!-- Personaliza la columna de fecha -->
+            <span *ngSwitchCase="'FECHA_DE_NACIMIENTO'">{{ formatDate(row[header]) }}</span>
+            <!-- Personaliza las columnas monetarias -->
+            <span *ngSwitchCase="'SALDO_ACTUAL'">{{ formatCurrency(row[header]) }}</span>
+            <span *ngSwitchCase="'LIMITE_DE_CREDITO'">{{ formatCurrency(row[header]) }}</span>
+            <span *ngSwitchCase="'SALDO_VENCIDO'">{{ formatCurrency(row[header]) }}</span>
+            <!-- Otros casos por defecto -->
+            <span *ngSwitchDefault>{{row[header]}}</span>
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="custom-header-row"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="custom-row"></tr>
+
+    </table>
+
+    <!-- Paginador -->
+    <div>
+      <mat-paginator class="paginator" [pageSizeOptions]="[5, 10, 20, 30]" showFirstLastButtons
+        class="custom-paginator"></mat-paginator>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+<div class="container ">
+
+
+  <!-- HTML -->
+  <div class="row ">
+    <div class="col-sm-12">
+      <!-- Datos calculados -->
+      <div class="calculated-data text-center">
+        <p>Total de registros: {{ getTotalRegistros() }}</p>
+        <p>Persona con menor saldo actual: {{ getMinSaldo().PRIMER_NOMBRE }}
+          {{ getMinSaldo().SEGUNDO_NOMBRE }} {{ getMinSaldo().APELLIDO_PATERNO }} {{ getMinSaldo().APELLIDO_MATERNO }}
+          con un saldo de {{ getMinSaldo().SALDO_ACTUAL | currency }}</p>
+        <p>Persona con mayor saldo actual: {{ getMaxSaldo().PRIMER_NOMBRE }}
+          {{ getMaxSaldo().SEGUNDO_NOMBRE }} {{ getMaxSaldo().APELLIDO_PATERNO }} {{ getMaxSaldo().APELLIDO_MATERNO }}
+          con un saldo de {{ getMaxSaldo().SALDO_ACTUAL | currency }}</p>
+        <p>Suma de SALDO_ACTUAL: {{ getSumSaldo() | currency }}</p>
+        <p>Suma de LIMITE_DE_CREDITO: {{ getSumLimiteCredito() | currency }}</p>
+        <p>Suma de SALDO_VENCIDO: {{ getSumSaldoVencido() | currency }}</p>
+        <p>Suma de SALDO_DISPONIBLE: {{ getSumLimiteCredito() - getSumSaldo() | currency }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row m-5 ">
+    <div class="col-sm-12 text-center">
+      <!-- Gráfica de pastel -->
+      <div class="chart-pie-section">
+        <p>Gráfica de Pastel - Saldo Actual vs Saldo Disponible</p>
+        <canvas id="pieChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="row m-5 ">
+    <div class="col-sm-12 text-center">
+      <!-- Gráfica de barras -->
+      <div class="chart-section">
+        <p>Gráfica de Barras - Saldo Actual por Estado</p>
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
 </div>

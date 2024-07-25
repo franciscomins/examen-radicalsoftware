@@ -4,13 +4,26 @@
     height: flex;
     overflow-x: scroll;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    margin: 30px;
+    font-size: 30px;
   }
+ 
 
+.row {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente el contenido de la fila */
+}
 
+.col-sm-12 {
+  display: flex;
+  flex-direction: column; /* Alinea los elementos verticalmente */
+  align-items: center; /* Centra horizontalmente los elementos dentro de la columna */
+}
 
-  .paginator{
-    background-color: rgb(255, 255, 255);
-
-
-
+.text-center {
+  text-align: center; /* Centra el texto dentro de los elementos */
+}
+.chart-section{
+  width: 500px;
+  height: 500px;
 }
