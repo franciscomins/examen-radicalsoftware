@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { Chart, registerables } from 'chart.js';
 import { ExcelData, defaultExcelData } from '../interface/dataExcel';
 import { MatIconModule } from '@angular/material/icon';
+import { WeatherService } from '../services/weather.service';
+import { HttpClientModule } from '@angular/common/http';
 
 Chart.register(...registerables);
 
@@ -26,6 +28,7 @@ Chart.register(...registerables);
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    HttpClientModule,
   ],
   templateUrl: './importexcel.component.html',
   styleUrls: ['./importexcel.component.css']
@@ -39,12 +42,18 @@ export class ImportexcelComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  temperature: number | null = null;
+  city: string | null = null;
+
+  constructor(private weatherService: WeatherService) { }
+
   barChart: any;
   pieChart: any;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.requestLocation();
   }
 
   onFileChange(evt: any) {
@@ -215,12 +224,73 @@ export class ImportexcelComponent implements AfterViewInit {
             callbacks: {
               label: function(context) {
                 const label = context.label || '';
+
                 const value = Number(context.raw) || 0;
                 return `${label}: ${new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(value)}`;
               }
             }
           }
         }
+      }
+    });
+  }
+
+  requestLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          this.getWeatherByCoordinates(lat, lon);
+          this.getCityByCoordinates(lat, lon);
+        },
+        error => {
+          console.error('Error obteniendo la ubicación: ', error);
+          this.getWeather('Hermosillo');
+          this.city = 'Hermosillo';
+        }
+      );
+    } else {
+      console.error('El navegador no soporta geolocalización');
+      this.getWeather('Hermosillo');
+      this.city = 'Hermosillo';
+    }
+  }
+
+  getWeatherByCoordinates(lat: number, lon: number) {
+    this.weatherService.getWeatherByCoordinates(lat, lon).subscribe({
+      next: (response: any) => {
+        this.temperature = response.main.temp;
+      },
+      error: (error) => {
+        console.error('Error obteniendo el clima: ', error);
+      }
+    });
+  }
+
+  getCityByCoordinates(lat: number, lon: number) {
+    this.weatherService.getCityByCoordinates(lat, lon).subscribe({
+      next: (response: any) => {
+        if (response && response.length > 0) {
+          this.city = response[0].name;
+        } else {
+          this.city = 'Desconocida';
+        }
+      },
+      error: (error) => {
+        console.error('Error obteniendo la ciudad: ', error);
+        this.city = 'Desconocida';
+      }
+    });
+  }
+
+  getWeather(city: string) {
+    this.weatherService.getWeather(city).subscribe({
+      next: (response: any) => {
+        this.temperature = response.main.temp;
+      },
+      error: (error) => {
+        console.error('Error obteniendo el clima: ', error);
       }
     });
   }
