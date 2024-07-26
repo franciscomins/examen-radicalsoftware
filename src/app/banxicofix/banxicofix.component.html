@@ -1,0 +1,57 @@
+<div class="container-fluid">
+
+    <div class="forms-inputs">
+        <form (ngSubmit)="fetchExchangeRates()">
+          <div class="form-group">
+            <label for="fechaIni">Fecha Inicial</label>
+            <input 
+              type="date" 
+              id="fechaIni" 
+              [(ngModel)]="fechaIni" 
+              name="fechaIni" 
+              class="form-control"
+              required
+            >
+          </div>
+          <div class="form-group">
+            <label for="fechaFin">Fecha Final</label>
+            <input 
+              type="date" 
+              id="fechaFin" 
+              [(ngModel)]="fechaFin" 
+              name="fechaFin" 
+              class="form-control"
+              required
+            >
+          </div>
+          <button type="submit" class="btn-submit">Buscar</button>
+        </form>
+      </div>
+      
+   
+  <div class="box">
+
+    
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+          <td mat-cell *matCellDef="let element">{{ element.fecha }}</td>
+        </ng-container>
+    
+        <ng-container matColumnDef="dato">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Dato</th>
+          <td mat-cell *matCellDef="let element">{{ element.dato }}</td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+
+</div>
+
+
+
+  

@@ -3,6 +3,7 @@ import { NgOptimizedImage } from '@angular/common'
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
@@ -11,11 +12,16 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [NgOptimizedImage,
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    RouterLink
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+
+  constructor() {
+
+  }
 
 }
