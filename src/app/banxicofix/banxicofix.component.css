@@ -20,7 +20,7 @@ table {
   tr:hover {
     background-color: #f1f1f1;
   }
-  .container-fluid{
+  .container{
 
     margin-top: 100px;
 
@@ -90,4 +90,22 @@ table {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-size: 30px;
     background-color: #FDFBFF;
+  }
+
+
+  .bantext{
+    text-align: center;
+    color: #4d4d4d;
+  
+  }
+
+  .dashtitle{
+    font-size: 60px;
+    margin-bottom: 1.5rem;
+  }
+   
+  @media screen and (max-width: 800px) {
+    .dashtitle {
+      font-size: 27px;
+    }
   }

@@ -37,13 +37,19 @@ export class ImportexcelComponent implements AfterViewInit {
   data: ExcelData[] = [defaultExcelData];
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<ExcelData>(this.data);
-  dataCargada: boolean = false;
-
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   temperature: number | null = null;
   city: string | null = null;
+
+  // Variables para controlar la visibilidad
+  showTable: boolean = false;
+  showPieChart: boolean = false;
+  showBarChart: boolean = false;
+  showText: boolean = false;
+
 
   constructor(private weatherService: WeatherService) { }
 
@@ -77,7 +83,7 @@ export class ImportexcelComponent implements AfterViewInit {
           headers.forEach((header: string, index: number) => {
             obj[header] = row[index];
           });
-          this.dataCargada = true;
+      
           return obj;
         });
         console.log('DATA EXCEL', this.data);
@@ -93,6 +99,12 @@ export class ImportexcelComponent implements AfterViewInit {
         if (this.sort) {
           this.dataSource.sort = this.sort;
         }
+
+        // Actualizar la visibilidad de la tabla y las gráficas
+        this.showTable = this.data.length > 0;
+        this.showPieChart = this.data.length > 0;
+        this.showBarChart = this.data.length > 0;
+        this.showText= this.data.length > 0;
 
         // Crear las gráficas
         this.createBarChart();
