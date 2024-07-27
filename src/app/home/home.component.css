@@ -22,9 +22,6 @@
   animation: slideIn 1.5s ease-out;
 }
 
-.welcome-container button {
-
-}
 
 .welcome-container button:hover {
   background-color: #a6abb1;
