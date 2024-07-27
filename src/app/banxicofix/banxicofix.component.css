@@ -261,7 +261,7 @@ mat-form-field .mat-form-field-suffix {
 table {
   width: 100%;
   border-collapse: collapse;
-  animation: fadeIn 1s ease-in-out;
+  animation: fadeIn 0.1s ease-in-out;
 }
 
 th, td {

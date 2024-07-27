@@ -7,7 +7,6 @@
 
   .container {
     padding: 20px;
-    margin-bottom: 3rem;
     animation: fadeIn 1s ease-in-out;
   }
 
@@ -208,6 +207,7 @@
   }
 
   .text-temp {
+    
     font-size: 12px;
   }
 
@@ -268,3 +268,14 @@
     from { transform: translateY(-20px); }
     to { transform: translateY(0); }
   }
+
+
+  
+
+  .name {
+    margin-top: 5rem;
+    color: #ccc;
+    font-size: 0.5rem;
+    animation: fadeIn 1s ease-in-out;
+  }
+  

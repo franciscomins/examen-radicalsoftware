@@ -104,7 +104,7 @@ export class ImportexcelComponent implements AfterViewInit {
         const headersAreValid = this.checkHeaders(headers);
         if (!headersAreValid) {
           Swal.fire({
-            text: "El documento no es compatibles con aplicacion. Seleccioná la plantilla correcta.",
+            text: "El documento no es compatibles con la aplicacion. Seleccioná la plantilla correcta con los mismos campos.",
             icon: "error"
           });
           return;

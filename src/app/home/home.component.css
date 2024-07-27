@@ -23,18 +23,11 @@
 }
 
 .welcome-container button {
-  font-size: 1em;
-  padding: 0.5em 2em;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+
 }
 
 .welcome-container button:hover {
-  background-color: #0056b3;
+  background-color: #a6abb1;
 }
 
 @keyframes fadeIn {
@@ -45,4 +38,30 @@
 @keyframes slideIn {
   from { transform: translateY(-20px); }
   to { transform: translateY(0); }
+}
+.btn-dash{
+
+  font-size: 1em;
+  padding: 0.5em 2em;
+  background-color: #3cb040;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+}
+
+
+
+.btn-banxi{
+  font-size: 1em;
+  padding: 0.5em 2em;
+  background-color: #3b83d1;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
 }

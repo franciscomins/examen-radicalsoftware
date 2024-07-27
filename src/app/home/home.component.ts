@@ -12,7 +12,12 @@ export class HomeComponent {
 
   constructor(private router: Router) {}
 
-  navigate() {
+  navigateD() {
     this.router.navigate(['/dashboard']);
   }
+  navigateB() {
+    this.router.navigate(['/banxico']);
+  }
 }
+
+
