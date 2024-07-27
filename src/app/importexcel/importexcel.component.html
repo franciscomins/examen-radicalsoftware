@@ -1,11 +1,8 @@
 <div class="container">
 
-  <div class=" margintop text-center dashtext">
-    <p class="dashtitle">Dashboard Excel </p>
-
+  <div class="margintop text-center dashtext">
+    <p class="dashtitle">Dashboard Excel</p>
   </div>
-
-
 
   <div class="dashtext text-center">
     <p class="texins">
@@ -13,48 +10,35 @@
     </p>
   </div>
 
-
-  <!-- temperatura y la ciudad -->
-  <div class="row ">
-    <div class="col-sm-2 card temperature-container dashtext">
-      <p class="text-temp text-center">{{ city }}: {{ temperature }}°C
-
+  <!-- Temperatura y la ciudad -->
+  <div class="row">
+    <div class="col-sm-2 card cardtempe temperature-container dashtext">
+      <p class="text-temp text-center">
+        {{ city }}: {{ temperature }}°C
         <svg width="15px" height="15px" viewBox="0 0 1024 1024" class="icon" version="1.1"
           xmlns="http://www.w3.org/2000/svg" fill="#000000">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
           <g id="SVGRepo_iconCarrier">
-            <path
-              d="M512 512m-277.333333 0a277.333333 277.333333 0 1 0 554.666666 0 277.333333 277.333333 0 1 0-554.666666 0Z"
-              fill="#EFD358"></path>
-            <path
-              d="M85.333333 533.333333H42.666667a21.333333 21.333333 0 1 1 0-42.666666h42.666666a21.333333 21.333333 0 1 1 0 42.666666zM209.066667 230.4a21.269333 21.269333 0 0 1-15.082667-6.250667l-29.866667-29.866666a21.333333 21.333333 0 1 1 30.165334-30.165334l29.866666 29.866667A21.333333 21.333333 0 0 1 209.066667 230.4zM512 106.666667a21.333333 21.333333 0 0 1-21.333333-21.333334V42.666667a21.333333 21.333333 0 1 1 42.666666 0v42.666666a21.333333 21.333333 0 0 1-21.333333 21.333334zM814.933333 230.4a21.333333 21.333333 0 0 1-15.082666-36.416l29.866666-29.866667a21.333333 21.333333 0 1 1 30.165334 30.165334l-29.866667 29.866666a21.269333 21.269333 0 0 1-15.082667 6.250667zM981.333333 533.333333h-42.666666a21.333333 21.333333 0 1 1 0-42.666666h42.666666a21.333333 21.333333 0 1 1 0 42.666666z"
-              fill="#EFD358"></path>
-            <path
-              d="M810.666667 1002.666667H213.333333c-105.856 0-192-86.122667-192-192s86.144-192 192-192c17.322667 0 34.624 2.453333 51.669334 7.338666A256.128 256.128 0 0 1 490.666667 490.666667a255.786667 255.786667 0 0 1 232.533333 149.290666A189.653333 189.653333 0 0 1 810.666667 618.666667c105.856 0 192 86.122667 192 192s-86.144 192-192 192z"
-              fill="#E0E0E0"></path>
+            <path d="M512 512m-277.333333 0a277.333333 277.333333 0 1 0 554.666666 0 277.333333 277.333333 0 1 0-554.666666 0Z" fill="#EFD358"></path>
+            <path d="M85.333333 533.333333H42.666667a21.333333 21.333333 0 1 1 0-42.666666h42.666666a21.333333 21.333333 0 1 1 0 42.666666zM209.066667 230.4a21.269333 21.269333 0 0 1-15.082667-6.250667l-29.866667-29.866666a21.333333 21.333333 0 1 1 30.165334-30.165334l29.866666 29.866667A21.333333 21.333333 0 0 1 209.066667 230.4zM512 106.666667a21.333333 21.333333 0 0 1-21.333333-21.333334V42.666667a21.333333 21.333333 0 1 1 42.666666 0v42.666666a21.333333 21.333333 0 0 1-21.333333 21.333334zM814.933333 230.4a21.333333 21.333333 0 0 1-15.082666-36.416l29.866666-29.866667a21.333333 21.333333 0 1 1 30.165334 30.165334l-29.866667 29.866666a21.269333 21.269333 0 0 1-15.082667 6.250667zM981.333333 533.333333h-42.666666a21.333333 21.333333 0 1 1 0-42.666666h42.666666a21.333333 21.333333 0 1 1 0 42.666666z" fill="#EFD358"></path>
+            <path d="M810.666667 1002.666667H213.333333c-105.856 0-192-86.122667-192-192s86.144-192 192-192c17.322667 0 34.624 2.453333 51.669334 7.338666A256.128 256.128 0 0 1 490.666667 490.666667a255.786667 255.786667 0 0 1 232.533333 149.290666A189.653333 189.653333 0 0 1 810.666667 618.666667c105.856 0 192 86.122667 192 192s-86.144 192-192 192z" fill="#E0E0E0"></path>
           </g>
         </svg>
       </p>
-
     </div>
   </div>
 
-
   <div class="file-upload-container">
     <label for="file-upload" class="file-upload-label">
-      <span class="file-upload-text">seleccionar archivo
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#CCCCCC">
-          <path d="M0 0h24v24H0z" fill="none" />
-          <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" /></svg>
-      </span>
+      <span class="file-upload-text">Seleccionar archivo</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#CCCCCC">
+        <path d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"></path>
+      </svg>
       <input type="file" id="file-upload" (change)="onFileChange($event)">
     </label>
   </div>
-
-
-
-
 
   <div class="box" [hidden]="!showTable">
     <!-- Tabla para mostrar los datos -->
@@ -85,46 +69,36 @@
     </div>
   </div>
 
-
-
-  <div class="container ">
+  <div class="container">
+    <div class="row calculated-data" [hidden]="!showText">
+      <div class="col-md-5 card cardmm m-3">
+        <p class="fw-bolder">Persona con menor saldo actual:</p>
+        <p>{{ getMinSaldo().PRIMER_NOMBRE }} {{ getMinSaldo().SEGUNDO_NOMBRE }} {{ getMinSaldo().APELLIDO_PATERNO }} {{ getMinSaldo().APELLIDO_MATERNO }} con un saldo de {{ getMinSaldo().SALDO_ACTUAL | currency }}</p>
+      </div>
+      <div class="col-md-5 card cardmm m-3">
+        <p class="fw-bolder">Persona con mayor saldo actual:</p>
+        <p>{{ getMaxSaldo().PRIMER_NOMBRE }} {{ getMaxSaldo().SEGUNDO_NOMBRE }} {{ getMaxSaldo().APELLIDO_PATERNO }} {{ getMaxSaldo().APELLIDO_MATERNO }} con un saldo de {{ getMaxSaldo().SALDO_ACTUAL | currency }}</p>
+      </div>
+    </div>
 
     <div class="row calculated-data" [hidden]="!showText">
-      <div class="col-md-5 card  cardmm m-3">
-        <p>Persona con menor saldo actual:</p>
-        <p>{{ getMinSaldo().PRIMER_NOMBRE }}
-          {{ getMinSaldo().SEGUNDO_NOMBRE }} {{ getMinSaldo().APELLIDO_PATERNO }} {{ getMinSaldo().APELLIDO_MATERNO }}
-          con un saldo de {{ getMinSaldo().SALDO_ACTUAL | currency }}</p>
-      </div>
-      <div class="col-md-5 card  cardmm m-3">
-        <p>Persona con mayor saldo actual: </p>
-         <p>{{ getMaxSaldo().PRIMER_NOMBRE }}
-        {{ getMaxSaldo().SEGUNDO_NOMBRE }} {{ getMaxSaldo().APELLIDO_PATERNO }} {{ getMaxSaldo().APELLIDO_MATERNO }}
-        con un saldo de {{ getMaxSaldo().SALDO_ACTUAL | currency }}</p>
-      </div>
-
-     </div> 
-
-     <div class="row calculated-data" [hidden]="!showText">
-      <div class="col-md-10 card cardsum ">
-        <p class="text-center">Suma de </p>
+      <div class="col-md-10 card cardsum">
+        <p class="text-center fw-bolder">Suma de</p>
         <p>SALDO ACTUAL: {{ getSumSaldo() | currency }}</p>
         <p>LIMITE DE CREDITO: {{ getSumLimiteCredito() | currency }}</p>
         <p>SALDO VENCIDO: {{ getSumSaldoVencido() | currency }}</p>
         <p>SALDO DISPONIBLE: {{ getSumLimiteCredito() - getSumSaldo() | currency }}</p>
       </div>
-    </div> 
-    
+    </div>
 
     <div class="row" [hidden]="!showText">
-      <div class="col-sm-4 card m-1">
-        <p class="align-middle">Total de registros: {{ getTotalRegistros() }}</p>
+      <div class="col-sm-3 card cardtotal ">
+        <p class="align-middle"><span class="fw-bolder">Total de registros:</span> {{ getTotalRegistros() }}</p>
       </div>
     </div>
 
-
     <div class="row m-5" [hidden]="!showBarChart">
-      <div class="col-sm-4 text-center">
+      <div class="col-sm-12 text-center">
         <!-- Gráfica de barras -->
         <div class="chart-section">
           <p>Gráfica de Barras - Saldo Actual por Estado</p>
@@ -142,8 +116,6 @@
         </div>
       </div>
     </div>
-
-    
 
   </div>
 

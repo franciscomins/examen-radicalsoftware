@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -14,6 +14,8 @@ import { ExcelData, defaultExcelData } from '../interface/dataExcel';
 import { MatIconModule } from '@angular/material/icon';
 import { WeatherService } from '../services/weather.service';
 import { HttpClientModule } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { FormsModule } from '@angular/forms';
 
 Chart.register(...registerables);
 
@@ -29,6 +31,9 @@ Chart.register(...registerables);
     MatButtonModule,
     MatIconModule,
     HttpClientModule,
+    FormsModule,
+    NgIf,
+    NgFor,
   ],
   templateUrl: './importexcel.component.html',
   styleUrls: ['./importexcel.component.css']
@@ -37,7 +42,7 @@ export class ImportexcelComponent implements AfterViewInit {
   data: ExcelData[] = [defaultExcelData];
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<ExcelData>(this.data);
-  
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -50,6 +55,13 @@ export class ImportexcelComponent implements AfterViewInit {
   showBarChart: boolean = false;
   showText: boolean = false;
 
+  // Encabezados esperados
+  expectedHeaders: string[] = [
+    'PRIMER_NOMBRE', 'SEGUNDO_NOMBRE', 'APELLIDO_PATERNO', 'APELLIDO_MATERNO',
+    'FECHA_DE_NACIMIENTO', 'RFC', 'COLONIA_O_POBLACION', 'DELEGACION_O_MUNICIPIO',
+    'CIUDAD', 'ESTADO', 'C.P.', 'DIRECCION_CALLE_NUMERO', 'SALDO_ACTUAL',
+    'LIMITE_DE_CREDITO', 'SALDO_VENCIDO'
+  ];
 
   constructor(private weatherService: WeatherService) { }
 
@@ -83,13 +95,24 @@ export class ImportexcelComponent implements AfterViewInit {
           headers.forEach((header: string, index: number) => {
             obj[header] = row[index];
           });
-      
+
           return obj;
         });
         console.log('DATA EXCEL', this.data);
 
+        // Verificar los encabezados
+        const headersAreValid = this.checkHeaders(headers);
+        if (!headersAreValid) {
+          Swal.fire({
+            text: "El documento no es compatibles con aplicacion. Seleccioná la plantilla correcta.",
+            icon: "error"
+          });
+          return;
+        }
+
         // Obtener los encabezados de las columnas
         this.displayedColumns = this.getHeaders();
+
         // Actualizar el DataSource de la tabla
         this.dataSource.data = this.data;
 
@@ -104,7 +127,7 @@ export class ImportexcelComponent implements AfterViewInit {
         this.showTable = this.data.length > 0;
         this.showPieChart = this.data.length > 0;
         this.showBarChart = this.data.length > 0;
-        this.showText= this.data.length > 0;
+        this.showText = this.data.length > 0;
 
         // Crear las gráficas
         this.createBarChart();
@@ -118,6 +141,11 @@ export class ImportexcelComponent implements AfterViewInit {
 
   getHeaders(): string[] {
     return this.data.length > 0 ? Object.keys(this.data[0]) : [];
+  }
+
+  checkHeaders(headers: string[]): boolean {
+    const headerSet = new Set(headers);
+    return this.expectedHeaders.every(expectedHeader => headerSet.has(expectedHeader));
   }
 
   getMinSaldo(): any {

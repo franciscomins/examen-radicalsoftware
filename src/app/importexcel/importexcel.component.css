@@ -14,12 +14,12 @@
 .box {
   margin: 30px 0;
   border: 1px solid #ffffff00;
-  width: auto; 
-  height: auto; 
+  width: auto;
+  height: auto;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 30px;
   overflow-x: scroll;
-  background-color: #FDFBFF; 
+  background-color: #FDFBFF;
 }
 
 .custom-header {
@@ -45,7 +45,7 @@
 
 .chart-pie-section {
   width: 100%;
-  max-width: 500px; 
+  max-width: 450px;
   margin: 0 auto;
   margin-bottom: 1rem;
 }
@@ -57,7 +57,7 @@
 
 .chart-section {
   width: 100%;
-  max-width: 800px; 
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -103,12 +103,12 @@ mat-form-field .mat-form-field-suffix {
 
 .file-upload-label {
   display: inline-block;
-  padding: 9px;
-  border: 2px solid #439a2871;
-  max-width: 300px; 
-  max-height: 100px; 
+  padding: 10px;
+  border: 2px solid #439a281e;
+  max-width: 300px;
+  max-height: 100px;
   border-radius: 2rem;
-  background-color: #f9fafb2e;
+  background-color: #f9fafb5a;
   color: #0000007a;
   cursor: pointer;
   text-align: center;
@@ -135,29 +135,35 @@ mat-form-field .mat-form-field-suffix {
   background-color: white;
 }
 
+
 @media screen and (max-width: 1000px) {
   .file-upload-label {
     width: 100px;
-    height: 40;
-    font-size: 0.9rem;
-   
+    height: 40px;
+
+  }
+
+  .file-upload-text {
+    display: none;
   }
 }
 
 @media screen and (max-width: 500px) {
   .file-upload-label {
-    width: 60px;
+    width: 80px;
     height: 20;
     font-size: 0.3rem;
-   
+
   }
+
+
 }
 
 
 
 
 ::-webkit-scrollbar {
-  width: 1px; 
+  width: 1px;
 }
 
 ::-webkit-scrollbar-track {
@@ -166,17 +172,17 @@ mat-form-field .mat-form-field-suffix {
 
 
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d4; 
-  border-radius: 10px; 
+  background: #d4d4d4;
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #c9c9c9; 
+  background: #c9c9c9;
 }
 
 .margintop{
   margin-top: 100px ;
-  
-  
+
+
 }
 
 
@@ -193,7 +199,7 @@ mat-form-field .mat-form-field-suffix {
 }
 
 .text-center .icon {
-  margin-left: 8px; /* Ajusta el margen según tus necesidades */
+  margin-left: 8px;
 }
 
 .text-temp{
@@ -201,9 +207,9 @@ mat-form-field .mat-form-field-suffix {
 }
 .texins
 {
-  color: #d4d4d4;
+  color: #9f9f9f;
   font-size: 18px;
-  
+
 }
 @media screen and (max-width: 800px) {
   .texins {
@@ -215,16 +221,29 @@ mat-form-field .mat-form-field-suffix {
   font-size: 90px;
   margin-bottom: 1.5rem;
 }
- 
+
 @media screen and (max-width: 800px) {
   .dashtitle {
     font-size: 37px;
   }
+
 }
 
 .card{
   box-shadow: 1px 5px 5px rgba(0, 0, 0, 0.195);
   border-color: #ffffff;
+  padding: 1rem;
+
 }
 
+.cardtotal{
+  text-align: center;
+  align-items: center;
+}
+.cardtempe{
+  padding: auto;
+}
 
+.cardsum{
+  width: 86%;
+}

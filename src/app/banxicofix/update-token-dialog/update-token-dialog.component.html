@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Actualizar Token</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Token</mat-label>
+    <input matInput [(ngModel)]="token">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button (click)="onSaveClick()">Guardar</button>
+</mat-dialog-actions>
